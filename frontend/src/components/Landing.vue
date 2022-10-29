@@ -34,7 +34,15 @@
         </div>
     </div>
     <div style="padding-top: 20px">
-        <button type="button" class="btn btn-warning" @click="bersihkan"  v-if="progress.length > 0">Clear</button>  
+        <span v-if="isOnDutty">
+            On Dutty ...
+        </span>
+        <div v-if="isDone">
+            <span>
+            -- Selesai --
+            </span> <br>
+        </div>
+        <button type="button" class="btn btn-warning" @click="bersihkan"  v-if="progress.length > 0 && isDone">Clear</button>  
         <button type="button" class="btn btn-primary" style="margin-left: 10px" @click="kirim" v-if="!isKirim">Kirim !</button> 
     </div>
     <div style="padding-top: 30px;" class="d-flex justify-content-center" v-if="progress.length > 0">
@@ -62,7 +70,9 @@ export default {
                 jumlah: ""
             },
             progress: [],
-            isKirim: false
+            isKirim: false,
+            isOnDutty: false,
+            isDone: false
         }
     },
     methods: {
@@ -75,11 +85,20 @@ export default {
             this.progress = []
             this.isinya.pesan = ''
             this.isKirim = false
+            this.isOnDutty = false
+            this.isDone = false
         }
     },
     mounted() {
-        EventsOn("nyoba", (pesan) => {
+        EventsOn("pesannya", (pesan) => {
             this.progress.push(pesan)
+        });
+        EventsOn("mulai", () => {
+            this.isOnDutty = true
+        })
+        EventsOn("selesai", () => {
+            this.isOnDutty = false
+            this.isDone = true
         })
     },
 }

@@ -5,6 +5,8 @@ import (
 	"context"
 	"encoding/json"
 	"strings"
+
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 type Datanya struct {
@@ -28,10 +30,12 @@ func (s *Spamin) Startup(ctx context.Context) {
 }
 
 func (s *Spamin) YukKirim(todos string) {
+	runtime.EventsEmit(s.ctx, "mulai")
 	var dt Datanya
 	json.Unmarshal([]byte(todos), &dt)
 	scanner := bufio.NewScanner(strings.NewReader(dt.Target))
 	for scanner.Scan() {
 		s.Scrape(scanner.Text(), dt.Jumlah, dt.Pesan)
 	}
+	runtime.EventsEmit(s.ctx, "selesai")
 }

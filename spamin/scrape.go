@@ -57,12 +57,12 @@ func (s *Spamin) Scrape(url string, jumlah int, pesan string) {
 	})
 
 	c.OnResponse(func(r *colly.Response) {
-		runtime.EventsEmit(s.ctx, "nyoba", fmt.Sprintf("mengirim pesan ke %s", r.Request.URL))
-		fmt.Println("Visited", r.Request.URL)
+		runtime.EventsEmit(s.ctx, "pesannya", fmt.Sprintf("mengirim pesan ke %s", r.Request.URL))
+		// fmt.Println("Visited", r.Request.URL)
 	})
 
 	c.OnScraped(func(r *colly.Response) {
-		runtime.EventsEmit(s.ctx, "nyoba", "Pesan telah terkirim")
+		runtime.EventsEmit(s.ctx, "pesannya", "Pesan telah terkirim")
 	})
 
 	// Start scraping
