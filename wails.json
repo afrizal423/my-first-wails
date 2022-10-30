@@ -8,5 +8,12 @@
   "author": {
     "name": "afrizal423",
     "email": "afrizal2499@gmail.com"
+  },
+  "Info": {
+    "companyName": "AfrizalMY",
+    "productName": "Nyepamin Secreto",
+    "productVersion": "1.0.0",
+    "copyright": "Copyright 2022",
+    "comments": "Built using Wails (https://wails.io)"
   }
 }
